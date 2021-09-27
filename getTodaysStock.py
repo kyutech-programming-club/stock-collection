@@ -9,31 +9,20 @@ end = dt.date.today()
 start = end - timedelta(days=365)
 
 df = web.DataReader('7203.T', "yahoo", start, end)
-# print(df)
 df2 = pd.DataFrame({'TOYOTA': df['Close']})
-# print(type(df2))
 
-dates = df['High']
-p = df2.values.tolist()
-s = np.array(p)
-print(dates)
-print(len(s))
+stocks = np.array(df2.values.tolist())
+dates = df2.reset_index().values.tolist()
+base = 810
 
 for num in range(240):
-    if abs(s[num] - s[num+4]) > 810 or abs(s[num] - s[num+3]) > 810 or abs(s[num] - s[num+2]) > 810 or abs(s[num] - s[num+1]) > 810:
-        print('基準です') 
-# print(df2)
-s = df2.values.tolist()
-Date = df2.reset_index().values.tolist()
-print(Date)
-# print(s)
-# print(len(s))
-# print(df['Date'])
+    if abs(stocks[num] - stocks[num+4]) > base or abs(stocks[num] - stocks[num+3]) > base or abs(stocks[num] - stocks[num+2]) > base or abs(stocks[num] - stocks[num+1]) > base:
+        print(dates[num]) 
 
 v = []
 
-for i in range(len(s)):
-    v.append(s[i][0])
+for i in range(len(stocks)):
+    v.append(stocks[i][0])
 # print(v)
 
 df2.plot(title='TOYOTA', grid=True)

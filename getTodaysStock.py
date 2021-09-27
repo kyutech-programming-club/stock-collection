@@ -12,6 +12,16 @@ df = web.DataReader('7203.T', "yahoo", start, end)
 # print(df)
 df2 = pd.DataFrame({'TOYOTA': df['Close']})
 # print(type(df2))
+
+dates = df['High']
+p = df2.values.tolist()
+s = np.array(p)
+print(dates)
+print(len(s))
+
+for num in range(240):
+    if abs(s[num] - s[num+4]) > 810 or abs(s[num] - s[num+3]) > 810 or abs(s[num] - s[num+2]) > 810 or abs(s[num] - s[num+1]) > 810:
+        print('基準です') 
 # print(df2)
 s = df2.values.tolist()
 Date = df2.reset_index().values.tolist()

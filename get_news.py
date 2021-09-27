@@ -10,11 +10,9 @@ CUSTOM_SEARCH_ENGINE_ID = "d5f69bbec694913dc"
 
 DATA_DIR = 'data'
 
-
 def makeDir(path):
     if not os.path.isdir(path):
         os.mkdir(path)
-
 
 def getSearchResponse(keyword):
     today = datetime.datetime.today().strftime("%Y%m%d")
@@ -49,12 +47,11 @@ def getSearchResponse(keyword):
     out = {'snapshot_ymd': today, 'snapshot_timestamp': timestamp, 'response': []}
     out['response'] = response
     jsonstr = json.dumps(out, ensure_ascii=False)
-    with open(os.path.join(save_response_dir, 'response_' + today + '.json'), mode='w', encoding='utf-8') as response_file:
+    with open(os.path.join(save_response_dir, 'response_' + timestamp + keyword + '.json'), mode='w', encoding='utf-8') as response_file:
         response_file.write(jsonstr)
-
 
 if __name__ == '__main__':
 
-    target_keyword = '訪日外国人 要因研究'
+    target_keyword = 'トヨタ 8月21日'
 
     getSearchResponse(target_keyword)

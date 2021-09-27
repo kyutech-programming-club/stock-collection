@@ -10,6 +10,12 @@ pandas-datareader = "*"
 matplotlib = "*"
 scipy = "*"
 newsapi-python = "*"
+selenium = "*"
+chromedriver-binary = "==93.0.4577.63.0"
+requests = "*"
+beautifulsoup4 = "*"
+bs4 = "*"
+google-api-python-client = "*"
 
 [dev-packages]
 

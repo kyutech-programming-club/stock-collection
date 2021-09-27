@@ -24,17 +24,17 @@ def getSearchResponse(keyword):
 
     service = build("customsearch", "v1", developerKey=GOOGLE_API_KEY)
 
-    page_limit = 10
+    page_limit = 1
     start_index = 1
     response = []
     for n_page in range(0, page_limit):
         try:
             sleep(1)
             response.append(service.cse().list(
-                q=keyword,
+                q='TOYOTA 8月20日',
                 cx=CUSTOM_SEARCH_ENGINE_ID,
                 lr='lang_ja',
-                num=10,
+                num=1,
                 start=start_index
             ).execute())
             start_index = response[n_page].get("queries").get("nextPage")[

@@ -1,6 +1,8 @@
 import os
 import datetime
 import json
+import getTodaysStock
+import makeSearchList
 
 from time import sleep
 from googleapiclient.discovery import build
@@ -22,14 +24,14 @@ def getSearchResponse(keyword):
 
     service = build("customsearch", "v1", developerKey=GOOGLE_API_KEY)
 
-    page_limit = 1
+    page_limit = 2
     start_index = 1
     response = []
     for n_page in range(0, page_limit):
         try:
             sleep(1)
             response.append(service.cse().list(
-                q='TOYOTA 8月20日',
+                q=target_keyword,
                 cx=CUSTOM_SEARCH_ENGINE_ID,
                 lr='lang_ja',
                 num=1,
@@ -47,11 +49,15 @@ def getSearchResponse(keyword):
     out = {'snapshot_ymd': today, 'snapshot_timestamp': timestamp, 'response': []}
     out['response'] = response
     jsonstr = json.dumps(out, ensure_ascii=False)
-    with open(os.path.join(save_response_dir, 'response_' + timestamp + keyword + '.json'), mode='w', encoding='utf-8') as response_file:
+    with open(os.path.join(save_response_dir, 'response_' + keyword + '.json'), mode='w', encoding='utf-8') as response_file:
         response_file.write(jsonstr)
 
 if __name__ == '__main__':
-
-    target_keyword = 'トヨタ 8月21日'
-
-    getSearchResponse(target_keyword)
+    dates_list = getTodaysStock.search_dates()
+    print("会社名を入力してください")
+    target_company = input()
+    for num in range(len(dates_list)):
+        target_keyword = target_company + " " + dates_list[num]
+        print(target_keyword)
+        getSearchResponse(target_keyword)
+        makeSearchList.makeSearchResults(target_keyword)

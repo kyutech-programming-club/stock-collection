@@ -12,10 +12,10 @@ def makeDir(path):
     if not os.path.isdir(path):
         os.mkdir(path)
 
-def makeSearchResults():
+def makeSearchResults(keyword):
     today = datetime.datetime.today().strftime("%Y%m%d")
 
-    response_filename = os.path.join(DATA_DIR, 'response', 'response_' + today + '.json')
+    response_filename = os.path.join(DATA_DIR, 'response', 'response_' + keyword + '.json')
     response_file = open(response_filename, 'r', encoding="utf-8")
     response_json = response_file.read()
     response_tmp = json.loads(response_json)
@@ -35,7 +35,7 @@ def makeSearchResults():
     save_results_dir = os.path.join(DATA_DIR, 'results')
     makeDir(save_results_dir)
     df_results = pd.DataFrame(results)
-    df_results.to_csv(os.path.join(save_results_dir, 'results_' + ymd + '.csv'), sep='\t', index=False, columns=['ymd', 'no', 'display_link', 'title', 'link', 'snippet'])
+    df_results.to_csv(os.path.join(save_results_dir, 'results_' + keyword + '.csv'), sep='\t', index=False, columns=['ymd', 'no', 'display_link', 'title', 'link', 'snippet'])
 
 if __name__ == '__main__':
 

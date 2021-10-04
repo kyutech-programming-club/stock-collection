@@ -5,7 +5,7 @@ import numpy as np
 import pandas_datareader.data as web
 import matplotlib.pyplot as plt
 
-def searchDates():
+def search_dates():
     end = dt.date.today()
     start = end - timedelta(days=365)
 
@@ -17,18 +17,18 @@ def searchDates():
 
     sum = 0
     base = 0
-    print(df)
     for num in range(230):
         sum += stocks[num]
         average = sum / 230
         base = average * 0.08
 
+    date_list = []
     for num in range(230):
         if abs(stocks[num] - stocks[num+4]) > base or abs(stocks[num] - stocks[num+3]) > base or abs(stocks[num] - stocks[num+2]) > base or abs(stocks[num] - stocks[num+1]) > base:
-            dateData = dates[num][0].strftime('%Y年%m月%d日') 
-            dateList = []
-            dateList.append(dateData)
-            print(dateData)
+            date_data = dates[num][0].strftime('%Y年%m月%d日') 
+            date_list.append(date_data)
+    
+    return date_list 
         
 # v = []
 
